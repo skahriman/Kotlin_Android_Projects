@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ShoeStore</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
+    <string name="logout">Logout</string>
+    <string name="welcome">Welcome to our shoe store app</string>
+    <string name="welcome_instruction">To see the instructions go to the instructions page by clicking the the button below</string>
+    <string name="instructions">You will see the list of shoes in next screen</string>
+    <string name="new_login">New Login</string>
+    <string name="existing_user">Existing User</string>
+    <string name="go_to_instructions_btn">Go to Instructions</string>
+    <string name="go_to_the_shoe_list_page">Go to the Shoe List Page</string>
+    <string name="add_shoe_next_page">You can add shoes to the list in the next page</string>
+    <string name="hint_name">Enter Name</string>
+    <string name="hint_size">Enter Size</string>
+    <string name="hint_company">Enter Company</string>
+    <string name="hint_description">Enter Description</string>
+    <string name="add">Add</string>
+    <string name="login">Login</string>
+    <string name="cancel">cancel</string>
+</resources>

@@ -16,6 +16,7 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
     private val API_KEY ="3DqKevLhsid80oZMvqwGETPyOY8pK5cVNuUlRXr8"
+
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
         get() = _response
@@ -24,6 +25,7 @@ class MainViewModel : ViewModel() {
     val propertyOfPictureOfDay: LiveData<PictureOfDay>
         get() = _propertyOfPictureOfDay
 
+
     init {
         getNasaPictureOfDay()
     }
@@ -31,8 +33,8 @@ class MainViewModel : ViewModel() {
     private fun getNasaPictureOfDay() {
         viewModelScope.launch {
             try {
-                var listResult = NasaApi.retrofitService.getPictureOfDayProperties(API_KEY)
-                _response.value = "Success: ${listResult} Mars properties retrieved"
+                var result = NasaApi.retrofitService.getPictureOfDayProperties(API_KEY)
+                _propertyOfPictureOfDay.value = result
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }

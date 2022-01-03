@@ -41,9 +41,15 @@ class MainFragment : Fragment() {
 
         binding.asteroidRecycler.adapter = adapter
 
-        //added this
+        //for listener
+        adapter.setOnItemClickListener(object : MyAdapter.MyClickListener {
+            override fun onItemClick(position: Int) {
+                Log.i("MainFragment", "${position}")
+                Toast.makeText(context, "You clicked ", Toast.LENGTH_LONG).show();
+            }
 
-        // added this
+        })
+        // for listener
 
         binding.asteroidRecycler.layoutManager = LinearLayoutManager(context)
 

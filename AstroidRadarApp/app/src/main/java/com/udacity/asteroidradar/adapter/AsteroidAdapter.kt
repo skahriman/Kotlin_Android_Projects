@@ -10,12 +10,22 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.R
 
 class MyAdapter(private val dataSet: List<Asteroid>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+    // for Listener
+    private lateinit var mListener : MyClickListener
+
+    interface MyClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: MyClickListener) {
+        mListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -28,9 +38,15 @@ class MyAdapter(private val dataSet: List<Asteroid>): RecyclerView.Adapter<MyAda
         return dataSet.size
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, listener: MyClickListener) : RecyclerView.ViewHolder(view) {
         val codeName : TextView = view.findViewById(R.id.tv_codename)
         val closeApproachDate : TextView = view.findViewById(R.id.tv_closeApproachDate)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
 }

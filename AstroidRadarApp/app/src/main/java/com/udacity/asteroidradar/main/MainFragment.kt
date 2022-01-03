@@ -1,13 +1,18 @@
 package com.udacity.asteroidradar.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.udacity.asteroidradar.R
+import com.udacity.asteroidradar.adapter.MyAdapter
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
+    val list = mutableListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "1", "2", "3", "4", "5", "6", "7", "8", "9", "1", "2", "3", "4", "5", "6", "7", "8", "9")
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -21,6 +26,22 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
+
+
+        val adapter = MyAdapter(list)
+        binding.asteroidRecycler.adapter = adapter
+
+        //added this
+        adapter.setOnItemClickListener(object : MyAdapter.MyClickListener {
+            override fun onItemClick(position: Int) {
+                Log.i("MainActivity", "${position}")
+                Toast.makeText(context, "You clicked ", Toast.LENGTH_LONG).show();
+            }
+
+        })
+        // added this
+
+        binding.asteroidRecycler.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }

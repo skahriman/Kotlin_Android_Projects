@@ -63,16 +63,14 @@ class MainViewModel : ViewModel() {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 _response.value = response.body()
                 val parseAsteroidsJsonResult = parseAsteroidsJsonResult(JSONObject(_response.value))
-                Log.i("MarsViewModel", "size is: ${parseAsteroidsJsonResult.size}")
+                _asteroidData.value = parseAsteroidsJsonResult
+                Log.i("MainViewModel", "size is: ${_asteroidData.value!!.size}")
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
                 _response.value = "Failure: " + t.message
             }
-
         })
-        _response.value = "Set the Mars API Response here!"
-        Log.i("MarsViewModel", "last ${_response.value}")
     }
 
 }

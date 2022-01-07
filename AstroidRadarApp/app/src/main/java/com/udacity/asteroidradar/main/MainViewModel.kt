@@ -19,8 +19,8 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
     private val API_KEY ="3DqKevLhsid80oZMvqwGETPyOY8pK5cVNuUlRXr8"
-    private val START_DATE ="2022-01-04"
-    private val END_DATE = "2022-01-11"
+    private val START_DATE ="2022-01-06"
+    private val END_DATE = "2022-01-13"
 
     // The internal MutableLiveData String that stores the most recent response status
     private var _status = MutableLiveData<String>()

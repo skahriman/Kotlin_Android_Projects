@@ -9,7 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.R
 
-class MyAdapter(private val dataSet: List<Asteroid>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(private val data: List<Asteroid>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+
+    var dataSet = data
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
     // for Listener
     private lateinit var mListener : MyClickListener
 

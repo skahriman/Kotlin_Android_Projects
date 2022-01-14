@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.Constants
-import com.udacity.asteroidradar.PictureOfDay
+import com.udacity.asteroidradar.*
 import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.api.NasaApiService
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
@@ -19,8 +17,8 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
     private val API_KEY ="3DqKevLhsid80oZMvqwGETPyOY8pK5cVNuUlRXr8"
-    private val START_DATE ="2022-01-10"
-    private val END_DATE = "2022-01-17"
+    private val START_DATE = getDay(0).toString("yyyy-MM-dd")
+    private val END_DATE = getDay(7).toString("yyyy-MM-dd")
 
     // The internal MutableLiveData String that stores the most recent response status
     private var _status = MutableLiveData<String>()

@@ -1,21 +1,21 @@
 package com.udacity.asteroidradar.main
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.udacity.asteroidradar.*
 import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.api.NasaApiService
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
+import com.udacity.asteroidradar.database.getDatabase
+import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val API_KEY ="3DqKevLhsid80oZMvqwGETPyOY8pK5cVNuUlRXr8"
     private val START_DATE = getDay(0).toString("yyyy-MM-dd")
     private val END_DATE = getDay(7).toString("yyyy-MM-dd")
@@ -35,40 +35,26 @@ class MainViewModel : ViewModel() {
     val propertyOfPictureOfDay: LiveData<PictureOfDay>
         get() = _propertyOfPictureOfDay
 
-    private var _asteroidData = MutableLiveData<MutableList<Asteroid>>()
-    val asteroidData: LiveData<MutableList<Asteroid>>
-        get() = _asteroidData
-
+    private val database = getDatabase(application)
+    private val asteroidsRepository = AsteroidsRepository(database)
 
     init {
-        getNasaPictureOfDay()
-        getAsteroidData()
+        viewModelScope.launch {
+            getNasaPictureOfDay()
+            asteroidsRepository.refreshAsteroids()
+        }
     }
+
+    val asteroidData = asteroidsRepository.asteroids
 
     private fun getNasaPictureOfDay() {
         viewModelScope.launch {
             try {
-                var result = NasaApi.retrofitService.getPictureOfDayProperties(API_KEY)
+                var result = NasaApi.retrofitService.getPictureOfDayProperties(Constants.API_KEY)
                 _propertyOfPictureOfDay.value = result
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
         }
     }
-
-    private fun getAsteroidData() {
-        NasaApi.retrofitService2.getAsteroidData(START_DATE, END_DATE, API_KEY).enqueue(object: Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                _response.value = response.body()
-                val parseAsteroidsJsonResult = parseAsteroidsJsonResult(JSONObject(_response.value))
-                _asteroidData.value = parseAsteroidsJsonResult
-                Log.i("MainViewModel", "size is: ${_asteroidData.value!!.size}")
-            }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                _response.value = "Failure: " + t.message
-            }
-        })
-    }
-
 }

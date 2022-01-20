@@ -16,16 +16,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
-    private val API_KEY ="3DqKevLhsid80oZMvqwGETPyOY8pK5cVNuUlRXr8"
-    private val START_DATE = getDay(0).toString("yyyy-MM-dd")
-    private val END_DATE = getDay(7).toString("yyyy-MM-dd")
-
-    // The internal MutableLiveData String that stores the most recent response status
-    private var _status = MutableLiveData<String>()
-
-    // The external immutable LiveData for the status String
-    val status: LiveData<String>
-        get() = _status
 
     private var _response = MutableLiveData<String>()
     val response: LiveData<String>

@@ -3,6 +3,7 @@ package com.udacity.asteroidradar.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,11 @@ class MyAdapter(private val data: List<Asteroid>): RecyclerView.Adapter<MyAdapte
         val currentItem = dataSet[position]
         holder.codeName.text = currentItem.codename
         holder.closeApproachDate.text = currentItem.closeApproachDate
+
+        // Set the image dynamically
+        if (currentItem.isPotentiallyHazardous) {
+            holder.imageMain.setImageResource(R.drawable.ic_status_potentially_hazardous)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -48,6 +54,7 @@ class MyAdapter(private val data: List<Asteroid>): RecyclerView.Adapter<MyAdapte
     class ViewHolder(view: View, listener: MyClickListener) : RecyclerView.ViewHolder(view) {
         val codeName : TextView = view.findViewById(R.id.tv_codename)
         val closeApproachDate : TextView = view.findViewById(R.id.tv_closeApproachDate)
+        val imageMain: ImageView = view.findViewById(R.id.imageStatus);
 
         init {
             itemView.setOnClickListener {

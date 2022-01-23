@@ -37,8 +37,6 @@ class MainFragment : Fragment() {
             //for listener
             myAdapter.setOnItemClickListener(object : MyAdapter.MyClickListener {
                 override fun onItemClick(position: Int) {
-                    Log.i("MainFragment", "${position}")
-                    Toast.makeText(context, "You clicked ", Toast.LENGTH_LONG).show();
                     selectedAsteroid = viewModel.asteroidData.value!![position]
                     val view: View = binding.asteroidRecycler.findViewHolderForAdapterPosition(position)!!.itemView
                     view.findNavController().navigate(MainFragmentDirections.actionShowDetail(selectedAsteroid))

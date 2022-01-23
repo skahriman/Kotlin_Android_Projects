@@ -36,6 +36,7 @@
                     android:textColor="@color/default_text_color"/>
             </LinearLayout>
             <ImageView
+                android:id="@+id/imageStatus"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

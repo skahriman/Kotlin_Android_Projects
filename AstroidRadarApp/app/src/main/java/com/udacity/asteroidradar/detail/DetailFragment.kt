@@ -14,11 +14,19 @@ class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentDetailBinding.inflate(inflater)
+
+        val activityMainImageOfTheDay = binding.activityMainImageOfTheDay
+
         binding.lifecycleOwner = this
 
         val asteroid = DetailFragmentArgs.fromBundle(requireArguments()).selectedAsteroid
 
         binding.asteroid = asteroid
+
+        // Set the image dynamically
+        if (asteroid.isPotentiallyHazardous) {
+            activityMainImageOfTheDay.setImageResource(R.drawable.asteroid_hazardous)
+        }
 
         binding.helpButton.setOnClickListener {
             displayAstronomicalUnitExplanationDialog()

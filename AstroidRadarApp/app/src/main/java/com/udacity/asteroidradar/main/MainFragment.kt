@@ -20,6 +20,7 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
     private lateinit var myAdapter: MyAdapter
+    private lateinit var selectedAsteroid: Asteroid
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -38,8 +39,9 @@ class MainFragment : Fragment() {
                 override fun onItemClick(position: Int) {
                     Log.i("MainFragment", "${position}")
                     Toast.makeText(context, "You clicked ", Toast.LENGTH_LONG).show();
-                    val getView: View = binding.asteroidRecycler.findViewHolderForAdapterPosition(position)!!.itemView
-                    getView.findNavController().navigate(R.id.action_showDetail)
+                    selectedAsteroid = viewModel.asteroidData.value!![position]
+                    val view: View = binding.asteroidRecycler.findViewHolderForAdapterPosition(position)!!.itemView
+                    view.findNavController().navigate(MainFragmentDirections.actionShowDetail(selectedAsteroid))
 
                 }
 

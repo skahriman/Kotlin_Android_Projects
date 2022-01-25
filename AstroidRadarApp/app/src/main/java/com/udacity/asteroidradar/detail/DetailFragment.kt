@@ -17,6 +17,7 @@ class DetailFragment : Fragment() {
 
         val activityMainImageOfTheDay = binding.activityMainImageOfTheDay
 
+
         binding.lifecycleOwner = this
 
         val asteroid = DetailFragmentArgs.fromBundle(requireArguments()).selectedAsteroid
@@ -26,6 +27,7 @@ class DetailFragment : Fragment() {
         // Set the image dynamically
         if (asteroid.isPotentiallyHazardous) {
             activityMainImageOfTheDay.setImageResource(R.drawable.asteroid_hazardous)
+            activityMainImageOfTheDay.setContentDescription(getString(R.string.potentially_hazardous_asteroid_image))
         }
 
         binding.helpButton.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.udacity.asteroidradar.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class MyAdapter(private val data: List<Asteroid>): RecyclerView.Adapter<MyAdapte
         // Set the image dynamically
         if (currentItem.isPotentiallyHazardous) {
             holder.imageMain.setImageResource(R.drawable.ic_status_potentially_hazardous)
+            holder.imageMain.setContentDescription(holder.imageMain.context.getString(R.string.potentially_hazardous_asteroid_image))
         }
     }
 

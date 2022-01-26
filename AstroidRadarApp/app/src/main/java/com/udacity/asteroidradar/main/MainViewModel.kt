@@ -14,6 +14,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URLConnection
+import java.security.cert.CertPath
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -31,7 +33,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         viewModelScope.launch {
             getNasaPictureOfDay()
-            asteroidsRepository.refreshAsteroids()
+            try {
+                asteroidsRepository.refreshAsteroids()
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+            }
         }
     }
 

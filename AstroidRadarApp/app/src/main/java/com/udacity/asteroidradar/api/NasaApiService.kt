@@ -14,22 +14,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.nasa.gov/"
-
-//https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY
-
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
+    .baseUrl(Constants.BASE_URL)
     .build()
 
 private val retrofit2 = Retrofit.Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
-    .baseUrl(BASE_URL)
+    .baseUrl(Constants.BASE_URL)
     .build()
 
 interface NasaApiService {

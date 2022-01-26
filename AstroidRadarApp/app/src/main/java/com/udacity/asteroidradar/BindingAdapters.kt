@@ -48,6 +48,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Picasso.with(imgView.context)
             .load(imgUri)
+            .placeholder(R.drawable.placeholder_picture_of_day)
             .into(imgView)
     }
 }
